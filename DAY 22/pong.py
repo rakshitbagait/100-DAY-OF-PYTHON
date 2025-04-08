@@ -55,18 +55,45 @@ screen.onkey(paddle_left.go_up,"w")
 screen.onkey(paddle_left.go_down,"s")
 
 class Scoreboard(Turtle):
-     
+    def __init__(self):
+          super().__init__()
+          self.hideturtle()
+          self.penup()
+          self.color("white")
+          self.left_score =0
+          self.right_score=0
+          self.update_score()
+    def update_score(self):
+          self.clear()
+          self.goto(-100,150)
+          self.write(self.left_score,align="center",font=("Courier",80,"normal"))
+          self.goto(100,150)
+          self.write(self.right_score,align="center",font=("Courier",80,"normal"))
+    def r_score_calc(self):
+        self.right_score +=1
+        self.update_score() 
+    def l_score_calc(self):
+         self.left_score +=1
+         self.update_score()
+scoreboard=Scoreboard()
 
-while game_on: 
+while game_on:
     screen.update()
     ball.move()
     if ball.ycor()>240 or ball.ycor()<-250:
           ball.bounce_wall()
     if ball.distance(paddle_right)<50 and ball.xcor()>320:
          ball.bouce_paddel()
-    elif ball.distance(paddle_left)<50 and ball.xcor()<-320:
+    if ball.distance(paddle_left)<50 and ball.xcor()<-320:
          ball.bouce_paddel()
     if ball.xcor()>340 or ball.xcor()<-340:
         time.sleep(1)
-        ball.ball_refresh()
+        
+        if ball.xcor()>340:
+            scoreboard.l_score_calc()
+            ball.ball_refresh()
+        if ball.xcor()<-340:
+            scoreboard.r_score_calc()
+            ball.ball_refresh()
+
 screen.exitonclick()
