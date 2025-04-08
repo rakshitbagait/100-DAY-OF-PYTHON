@@ -63,6 +63,7 @@ class Scoreboard(Turtle):
           self.left_score =0
           self.right_score=0
           self.update_score()
+
     def update_score(self):
           self.clear()
           self.goto(-100,150)
@@ -75,7 +76,14 @@ class Scoreboard(Turtle):
     def l_score_calc(self):
          self.left_score +=1
          self.update_score()
+    def game_over(self):
+               self.goto(0,-20)
+               self.write("Game over",align="center", font="Arial")
+               
 scoreboard=Scoreboard()
+tim = Turtle()
+tim.hideturtle()
+tim.color("white")
 
 while game_on:
     screen.update()
@@ -95,5 +103,14 @@ while game_on:
         if ball.xcor()<-340:
             scoreboard.r_score_calc()
             ball.ball_refresh()
+    if scoreboard.left_score==3:
+        tim.write("Left won",align="center",font="Courier")
+        scoreboard.game_over()
+        game_on=False
+    if scoreboard.right_score == 3:
+        tim.write("Right won", align="center", font="Courier")
+        scoreboard.game_over()
+        game_on = False 
 
+screen.update()
 screen.exitonclick()
