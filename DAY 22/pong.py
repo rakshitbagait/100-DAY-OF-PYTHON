@@ -88,7 +88,7 @@ tim.color("white")
 while game_on:
     screen.update()
     ball.move()
-    if ball.ycor()>240 or ball.ycor()<-250:
+    if ball.ycor()>240 or ball.ycor()<-230:
           ball.bounce_wall()
     if ball.distance(paddle_right)<50 and ball.xcor()>320:
          ball.bouce_paddel()
