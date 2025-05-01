@@ -11,8 +11,8 @@
 #     data =file.readline(1000)
 #     print(data)
 
-csv library 
-D:/100 Days Of Python/DAY 25/weather_data.csv
+# csv library 
+# D:/100 Days Of Python/DAY 25/weather_data.csv
 import csv
 
 with open("D:/100 Days Of Python/DAY 25/weather_data.csv") as data_file:
