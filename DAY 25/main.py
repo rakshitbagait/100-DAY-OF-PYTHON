@@ -1,27 +1,27 @@
 # to input the value in the 
 
-file = open("D:/100 Days Of Python/DAY 25/weather_data.csv")
-contents=file.read()
-print(contents)
+# file = open("D:/100 Days Of Python/DAY 25/weather_data.csv")
+# contents=file.read()
+# print(contents)
 
-with open("D:/100 Days Of Python/DAY 25/weather_data.csv") as file:
-    data =file.readlines()
-    print(data)
-with open("D:/100 Days Of Python/DAY 25/weather_data.csv") as file:
-    data =file.readline(1000)
-    print(data)
+# with open("D:/100 Days Of Python/DAY 25/weather_data.csv") as file:
+#     data =file.readlines()
+#     print(data)
+# with open("D:/100 Days Of Python/DAY 25/weather_data.csv") as file:
+#     data =file.readline(1000)
+#     print(data)
 
-# csv library 
-# D:/100 Days Of Python/DAY 25/weather_data.csv
-# import csv
+csv library 
+D:/100 Days Of Python/DAY 25/weather_data.csv
+import csv
 
-# with open("D:/100 Days Of Python/DAY 25/weather_data.csv") as data_file:
-#     data= csv.reader(data_file)
-#     temprature =[]
-#     for row in data:
-#         if row[1]!="temp":
-#             temprature.append(int(row[1]))
-#     print(temprature)
+with open("D:/100 Days Of Python/DAY 25/weather_data.csv") as data_file:
+    data= csv.reader(data_file)
+    temprature =[]
+    for row in data:
+        if row[1]!="temp":
+            temprature.append(int(row[1]))
+    print(temprature)
         
 
 import pandas as pd
