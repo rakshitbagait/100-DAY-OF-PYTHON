@@ -2,6 +2,7 @@ WORK_MIN = 25
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 reps =0
+timer=None
 
 from tkinter import *
 from PIL import Image, ImageTk
@@ -14,13 +15,16 @@ win.resizable(False,False)
 
 
 def count_down(count):
+    global timer
     count_min = math.floor(count/60)
     count_sec = count%60
     if count_sec<10:
         count_sec= f"0{count_sec}"
     canvas.itemconfig(timer_text,text=f"{count_min}:{count_sec}")
     if count >0:
-     win.after(1000,count_down,count-1)
+     timer =win.after(1000,count_down,count-1)
+    else:
+       start_timer()
 def start_timer():
    global reps 
    reps +=1
@@ -29,11 +33,23 @@ def start_timer():
    long_break_sec= LONG_BREAK_MIN*60
    if reps%8==0:
      count_down(long_break_sec)
+     timer_label.config(text="Break",fg="Red")
    elif reps%2==0:
     count_down(short_break_sec)
+    timer_label.config(text="Break",fg="Red")
    else:
-         count_down(work_sec)
+      count_down(work_sec)
+      timer_label.config(text="Work",fg="Green")
+def reset_timer():
+    global timer, reps
+    if timer:
+        win.after_cancel(timer)
+        timer = None  # Clear timer reference
+    reps = 0
+    canvas.itemconfig(timer_text, text="00:00")
+    timer_label.config(text="Timer", fg="green")
     
+      
 
 timer_label = Label(text="Timer",foreground="Green",font=("Times New Roman",60,"bold"),background=win["background"])
 timer_label.pack() 
@@ -53,7 +69,7 @@ canvas.pack(anchor="center",)
 
 start_button = Button(text="start",font=("times new roman",10),fg="white",bg="green",height=2,width=5,command=start_timer)
 start_button.place(x=50,y=500)
-reset_button = Button(text="reset",font=("times new roman",10),fg="white",bg="green",height=2,width=5)
+reset_button = Button(text="reset",font=("times new roman",10),fg="white",bg="green",height=2,width=5,command=reset_timer)
 reset_button.place(x=300,y=500)
 
 win.mainloop()
