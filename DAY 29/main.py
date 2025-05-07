@@ -1,8 +1,8 @@
 from tkinter import *
 from tkinter import messagebox
 from PIL import Image, ImageTk
-import random, string
-
+import random, string,pyperclip
+import json
 win = Tk()
 win.geometry("600x600")
 win.configure(bg="white")
@@ -18,15 +18,27 @@ placeholder_email="Enter your email"
 placeholder_pass="Enter your password"
 
 def add_function():
+    website = website_name_entry.get()
+    email = email_name_entry.get()
+    password = pass_name_entry.get()
     if email_name_entry.get()!=placeholder_email and website_name_entry.get()!=placeholder_website and pass_name_entry.get()!=placeholder_pass:
+        new_data ={website:
+                       {
+                           "email":email,
+                           "password": password
+                       }
+                       }
         try:
-            with open("my_pass_file.txt", "a") as file:  # Open in append mode to add data
-                file.write(f"{email_name_entry.get()}|{website_name_entry.get()}|{pass_name_entry.get()}\n")
-                file.close()
+            with open("my_pass_file.json", "r") as file:
+                data = json.load(file)
         except FileNotFoundError:
-            with open("my_pass_file.txt", "w") as file:  # Create a new file if it doesn't exist
-                file.write(f"{email_name_entry.get()}|{website_name_entry.get()}|{pass_name_entry.get()}\n")
-                file.close()
+            data = {}
+
+        # Update and save data
+        data.update(new_data)
+        with open("my_pass_file.json", "w") as file:
+            json.dump(data, file, indent=4)
+                
     else:
         messagebox.showerror("Input Error",'None of the field must be  empty')
                         
@@ -50,9 +62,24 @@ def generate_pass(length = 12):
     # Insert password into entry field
     pass_name_entry.delete(0, END)
     pass_name_entry.insert(0, final_pass)
+    pyperclip.copy(final_pass)
 
 
-    
+def search_pass():
+    website = website_name_entry.get()
+    try:
+        with open("my_pass_file.json", 'r') as file:
+            data = json.load(file)
+            if website in data:
+                email = data[website]["email"]
+                password = data[website]["password"]
+                messagebox.showinfo("Credentials Found", f"Email: {email}\nPassword: {password}")
+            else:
+                messagebox.showerror("Not Found", f"No credentials stored for '{website}'.")
+    except FileNotFoundError:
+        messagebox.showerror("File Not Found", "Password file not found. Add a password first.")
+    except json.JSONDecodeError:
+        messagebox.showerror("Corrupted File", "The data file is corrupted.")
 
 def on_focus_in(event, entry, placeholder, underline):
     if entry.get() == placeholder:
@@ -139,6 +166,21 @@ genrate_pass_button = Button(    win,
     command=generate_pass)
 
 genrate_pass_button.place(x=330,y=510)
+
+search_button = Button(    win,
+    text="Search",
+    font=("Segoe UI", 10, "bold"),
+    fg="white",
+    bg="#11c5d9",               # Mustard yellow
+    activebackground="#cc900a", # Darker shade on click
+    activeforeground="white",
+    bd=0,                       # No border
+    relief=FLAT,
+    padx=10,
+    pady=5,
+    width=30,
+    command=search_pass)
+search_button.place(x=330,y=410)
 
 
 win.mainloop()
