@@ -1,0 +1,3 @@
+Enter your email|Enter the website Name/Url|Enter your password
+rbagait2018@gmail.com|gfg.com|12345
+
