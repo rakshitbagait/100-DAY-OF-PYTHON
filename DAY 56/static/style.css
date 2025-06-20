@@ -1,0 +1,9 @@
+body{
+    background-color: white;
+    background-repeat: no-repeat;      /* prevents repeating */
+    background-size: cover;            /* covers the whole screen */
+    background-position: center;     
+    height: 100vh;                     /* Ensures body takes full viewport height */
+    margin: 0;
+   /* centers the image */
+}
