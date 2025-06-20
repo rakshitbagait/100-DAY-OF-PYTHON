@@ -1,0 +1,41 @@
+body{
+    background-image: url("1.png");
+    background-repeat: no-repeat;      /* prevents repeating */
+    background-size: cover;            /* covers the whole screen */
+    background-position: center;     
+    height: 100vh;                     /* Ensures body takes full viewport height */
+    margin: 0;
+}
+.card{
+    height: 450px;
+    width: 400px;
+    background: white;
+    align-items: center;
+    margin-top: 80px;
+    margin-left: 600px;
+    opacity: 80%;
+    border-radius: 10px;
+    text-align: center;
+
+
+}
+
+hr{
+    width: 350px;
+}
+.image{
+    margin-top: 10px;
+    border-radius: 50%;
+    height: 150px;
+    width: 150px;
+    opacity: 100%;
+}
+h3{
+    color: grey;
+    
+}
+.link{
+    border-radius: 30%;
+    height: 50px;
+    padding: 20px;
+}
