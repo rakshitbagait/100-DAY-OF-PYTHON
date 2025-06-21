@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <h1>Top 15 Things to Do When You Are Bored</h1>
+
+    {% for blog_post in posts %}
+        <h2>{{ blog_post.title }}</h2>
+        <h3>{{ blog_post.subtitle }}</h3>
+        <p>{{ blog_post.body }}</p>
+        <hr>
+    {% endfor %}    
+
+</body>
+</html>
